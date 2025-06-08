@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from", "@/components/layout/Header", "<Header"
 import Footer from '@/components/layout/Footer';
+import Button from", "@/components/common/Button", "Button"
 
 const AboutPage = () => {
   return (

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import UserCard from '@/components/common/UserCard';
 import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
 interface UserData {
   id: number;
@@ -12,15 +13,11 @@ interface UserData {
   phone: string;
 }
 
-const UsersPage = () => {
-  const [users, setUsers] = useState<UserData[]>([]);
+interface UsersPageProps {
+  users: UserData[];
+}
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users') 
-      .then(res => res.json())
-      .then(data => setUsers(data));
-  }, []);
-
+const UsersPage: React.FC<UsersPageProps> = ({ users }) => {
   return (
     <div>
       <Header />
@@ -32,8 +29,21 @@ const UsersPage = () => {
           ))}
         </div>
       </main>
+      <Footer />
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const res = await fetch('https://jsonplaceholder.typicode.com/users'); 
+  const users = await res.json();
+
+  return {
+    props: {
+      users: users.slice(0, 10)
+    },
+    revalidate: 10,
+  };
+}
 
 export default UsersPage;
