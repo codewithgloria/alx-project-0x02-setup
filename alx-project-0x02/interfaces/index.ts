@@ -20,3 +20,8 @@ export interface PropertyProps {
   image: string;
   discount?: string;
 }
+
+export interface CardProps {
+  title: string;
+  content: string;
+}
